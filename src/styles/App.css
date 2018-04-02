@@ -32,3 +32,21 @@ body {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+/* Sources */
+.sources {
+  margin-top: 3%;
+}
+
+.source {
+  width: 150px;
+  height: 50px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+
+/* end Sources */
+
