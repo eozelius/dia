@@ -5,7 +5,7 @@ body {
 }
 
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-logo {
@@ -33,20 +33,67 @@ body {
   to { transform: rotate(360deg); }
 }
 
-
-/* Sources */
-.sources {
-  margin-top: 3%;
+/* general components */
+.title {
+  color: #17a2b8;
+  margin: 3% 1% 2%;
+  text-align: center;
 }
 
+/* end general components */
+
+
+
+/* Search */
+.search {
+  margin: 4% 1% 5%;
+}
+
+.search input[type="text"]{
+  width: 30%;
+  margin: 0 auto;
+  display: block;
+}
+/* end Search */
+
+
+
+
+/* Sources */
 .source {
   width: 150px;
   height: 50px;
   display: inline-block;
   border: 1px solid #ccc;
   overflow: hidden;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 5px; 
+  margin: 0 1%;
+  cursor: pointer;
+  color: #6E4239;
 }
 
-
+.source:hover {
+  font-weight: 500;
+  border: 2px solid #ccc;
+}
 /* end Sources */
+
+
+
+
+
+/* Articles */
+.article {
+  margin: 0 0 3%;
+}
+
+.card-header h6 {
+  color: #6E4239;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* end Articles */
 

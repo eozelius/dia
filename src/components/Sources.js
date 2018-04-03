@@ -12,6 +12,7 @@ export default class Sources extends Component {
 
     return (
       <div className='sources col-6'>
+        <h3 className='title'>Sources</h3>
         {sources}
       </div>
     )
