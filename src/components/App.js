@@ -18,8 +18,6 @@ export default class App extends Component {
   }
 
   fetchSources = () => {
-    console.log('APP.js::fetchSources()')
-
     Api.fetchSources()
       .then((sources) => {
         let fetchedSources
@@ -44,8 +42,6 @@ export default class App extends Component {
   }
 
   fetchArticles = (source) => {
-    console.log(`APP.js::fetchArticles()`)
-
     Api.fetchArticles(source)
       .then((articles) => {
         let myArticles
@@ -65,6 +61,13 @@ export default class App extends Component {
       })
   }
 
+  filterSources = (source_id) => {
+    console.log('App#filterSources() => ' + source_id)
+    const sources = [...this.state.sources]
+    console.log(sources)
+
+  }
+
   componentDidMount(){
     this.fetchSources()
     this.fetchArticles()
@@ -74,10 +77,10 @@ export default class App extends Component {
     return (
       <div className="App container" >
         <div className='row'>
-          <Search onInput={this.fetchSources} />
+          <Search onInput={this.filterSources} />
         </div>
         <div className='row'>
-          <Sources sources={this.state.sources} />
+          <Sources sources={this.state.sources} onClick={this.filterSources} />
           <Articles articles={this.state.articles} source={this.state.displaySource} />
         </div>
       </div>
