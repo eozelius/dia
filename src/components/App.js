@@ -13,27 +13,22 @@ export default class App extends Component {
     this.state = {
       sources: [],
       articles: [],
-      displaySource: 'Articles'
     }
   }
 
   fetchSources = () => {
     Api.fetchSources()
-      .then((sources) => {
+      .then((res) => {
         let fetchedSources
-        let displaySource
 
-        if(sources.length > 0) {
-          fetchedSources = sources
-          displaySource = sources[0].name
+        if(res.length > 0) {
+          fetchedSources = res
         } else {
           fetchedSources = []
-          displaySource = 'Articles'
         }
 
         this.setState({
-          sources: fetchedSources,
-          displaySource: displaySource
+          sources: fetchedSources
         })
       })
       .catch((error) => {
@@ -43,17 +38,17 @@ export default class App extends Component {
 
   fetchArticles = (source) => {
     Api.fetchArticles(source)
-      .then((articles) => {
-        let myArticles
-
-        if(articles[0]){
-          myArticles = articles
+      .then((res) => {
+        let articles
+        
+        if(res.length > 0){
+          articles = res
         } else {
-          myArticles = []
+          articles = []
         }
 
         this.setState({
-          articles: myArticles
+          articles: articles
         })
       })
       .catch((error) => {
@@ -80,8 +75,8 @@ export default class App extends Component {
           <Search onInput={this.filterSources} />
         </div>
         <div className='row'>
-          <Sources sources={this.state.sources} onClick={this.fetchArticles} />
-          <Articles articles={this.state.articles} source={this.state.displaySource} />
+          <Sources  sources={this.state.sources} onClick={this.fetchArticles} />
+          <Articles articles={this.state.articles} />
         </div>
       </div>
     );

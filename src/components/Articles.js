@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 export default class Articles extends Component {
   render() {
-    const articles = (this.props.articles || []).map((article) => (
-      <div className='article card' key={article.url} >
+    const articles = (this.props.articles || []).map((article, index) => (
+      <div className='article card' key={index} >
         <div className='card-header'>
           <h6>{article.title}</h6>
         </div>
@@ -21,7 +21,7 @@ export default class Articles extends Component {
 
     return(
       <div className='articles col-6'>
-        <h3 className='title'>{this.props.source} Articles</h3>
+        <h3 className='title'>Articles</h3>
         {articles}
       </div>
     )

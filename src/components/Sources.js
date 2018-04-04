@@ -11,18 +11,11 @@ export default class Sources extends Component {
   }
 
   handleClick = (source_id, index) => {
-    console.log(source_id)
-    console.log(index)
-
-    console.log(this)
-
-
     this.setState({
       activeSource: index
     })
 
-
-    // this.props.onClick(source_id)
+    this.props.onClick(source_id)
   }
 
   renderSource(source, index) {
