@@ -80,7 +80,7 @@ export default class App extends Component {
           <Search onInput={this.filterSources} />
         </div>
         <div className='row'>
-          <Sources sources={this.state.sources} onClick={this.filterSources} />
+          <Sources sources={this.state.sources} onClick={this.fetchArticles} />
           <Articles articles={this.state.articles} source={this.state.displaySource} />
         </div>
       </div>

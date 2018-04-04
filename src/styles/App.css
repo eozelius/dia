@@ -78,6 +78,12 @@ body {
   font-weight: 500;
   border: 2px solid #ccc;
 }
+
+.source.active {
+  font-weight: 500;
+  border: 2px solid #ccc;
+  background-color: #f4f8ff;
+}
 /* end Sources */
 
 

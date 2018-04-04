@@ -2,17 +2,45 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'  
 
 export default class Sources extends Component {
-  handleClick = (source_id) => {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      activeSource: 0
+    }
+  }
+
+  handleClick = (source_id, index) => {
     console.log(source_id)
-    this.props.onClick(source_id)
+    console.log(index)
+
+    console.log(this)
+
+
+    this.setState({
+      activeSource: index
+    })
+
+
+    // this.props.onClick(source_id)
+  }
+
+  renderSource(source, index) {
+    let classNames = 'source'
+
+    if(this.state.activeSource === index) {
+      classNames += ' active'
+    }
+
+    return (
+      <div onClick={() => this.handleClick(source.id, index)} className={classNames} key={index} >
+        <p>{source.name}</p>
+      </div>
+    )
   }
 
   render() {
-    const sources = (this.props.sources || []).map((source) => (
-      <div onClick={() => this.handleClick(source.id)} className='source' key={source.name}>
-        <p>{source.name}</p>
-      </div>
-    ))
+    const sources = (this.props.sources || []).map((source, index) => this.renderSource(source, index))
 
     return (
       <div className='sources col-6'>
