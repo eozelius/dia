@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'  
 
 export default class Articles extends Component {
   render() {
-    const articles = (this.props.articles || []).map((article, index) => (
+    const articles = this.props.articles.map((article, index) => (
+
       <div className='article card' key={index} >
         <div className='card-header'>
           <h6>{article.title}</h6>
@@ -26,4 +28,12 @@ export default class Articles extends Component {
       </div>
     )
   }
+}
+
+Articles.propTypes = { 
+  articles: PropTypes.array.isRequired
+}
+
+Articles.defaultProps = {
+  articles: []
 }

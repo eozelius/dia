@@ -61,15 +61,15 @@ body {
 
 /* Sources */
 .source {
-  width: 150px;
+  width: 48%;
   height: 50px;
   display: inline-block;
+  margin: 0 1%;
   border: 1px solid #ccc;
   overflow: hidden;
   text-align: center;
   line-height: 50px;
   border-radius: 5px; 
-  margin: 0 1%;
   cursor: pointer;
   color: #6E4239;
 }

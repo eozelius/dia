@@ -6,19 +6,18 @@ import Sources from './Sources.js'
 import Articles from './Articles.js'
 import '../styles/App.css';
 
-export default class App extends Component {
+export default class App extends Component { 
   constructor(props) {
     super(props)
 
     this.state = {
-      apiSources: [],
       sources: [],
       articles: [],
     }
   }
 
   resetSources = () => {
-    const sources = this.state.apiSources.slice(0)
+    const sources = this.apiSources.slice(0)
     this.setState({sources: sources})
   }
 
@@ -26,9 +25,8 @@ export default class App extends Component {
     Api.fetchSources()
       .then((res) => {
         const sources = res.length > 0 ? res : []
-
+        this.apiSources = sources;
         this.setState({
-          apiSources: sources,
           sources: sources
         })
       })
@@ -37,8 +35,8 @@ export default class App extends Component {
       })
   }
 
-  fetchArticles = (source) => {
-    Api.fetchArticles(source)
+  fetchArticles = (sources) => {
+    Api.fetchArticles(sources)
       .then((res) => {
         const articles = res.length > 0 ? res : []
 
@@ -58,21 +56,20 @@ export default class App extends Component {
     }
 
     filter = filter.toLowerCase()
-    const filterLength = filter.length    
-    const sources = this.state.apiSources.slice(0)
     let filteredSources = []
+    let filteredArticles = []
 
-    for(let i = 0; i < sources.length; i++) {
-      const srcID   = sources[i].id.slice(0, filterLength)
-      const srcName = sources[i].name.slice(0, filterLength)
-
-      if(srcID === filter || srcName === filter ){
-        filteredSources.push(sources[i])
+    for(let i = 0; i < this.apiSources.length; i++) {
+      const srcName = this.apiSources[i].name.toLowerCase()
+      if(srcName.includes(filter)) {
+        filteredSources.push(this.apiSources[i])
+        filteredArticles.push(this.apiSources[i].id)
       }
     }
 
     if(filteredSources.length > 0) {
       this.setState({sources: filteredSources})
+      this.fetchArticles(filteredArticles)
     } else {
       this.resetSources()
     }

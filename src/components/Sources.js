@@ -15,7 +15,7 @@ export default class Sources extends Component {
       activeSource: index
     })
 
-    this.props.onClick(source_id)
+    this.props.onClick([source_id])
   }
 
   renderSource(source, index) {
@@ -33,7 +33,7 @@ export default class Sources extends Component {
   }
 
   render() {
-    const sources = (this.props.sources || []).map((source, index) => this.renderSource(source, index))
+    const sources = this.props.sources.map((source, index) => this.renderSource(source, index))
 
     return (
       <div className='sources col-6'>

@@ -2,7 +2,6 @@ import axios from 'axios'
 
 export default class Api {
   static fetchSources(){
-    // const url = 'https://newsapi.org/v2/sources?apiKey=59519f47f5724e60b178a63e3b6c649b'
     const url = 'https://newsapi.org/v2/sources?apiKey=1b14114fcdff42a8b328c0a297d8a27f'
     return axios.get(url)
       .then((res) => {
@@ -14,10 +13,21 @@ export default class Api {
       })
   }
 
-  static fetchArticles(source) {
-    const mySource = source || 'abc-news'
-    // let url = `https://newsapi.org/v2/top-headlines?sources=${mySource}&apiKey=59519f47f5724e60b178a63e3b6c649b`
-    const url = `https://newsapi.org/v2/top-headlines?sources=${mySource}&apiKey=1b14114fcdff42a8b328c0a297d8a27f`
+
+
+  static fetchArticles(sources = ['abc-news']) {
+    let url = 'https://newsapi.org/v2/top-headlines?sources='
+    const apiKey = '&apiKey=59519f47f5724e60b178a63e3b6c649b'
+
+    for(let i = 0; i < sources.length; i++){
+      url += sources[i]
+
+      if(sources[i + 1] !== undefined) {
+        url += ','
+      }
+    }
+    url += apiKey
+
     return axios.get(url)
       .then((res) => {
         const articles = res.data.articles
