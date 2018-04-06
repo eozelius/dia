@@ -11,24 +11,25 @@ export default class App extends Component {
     super(props)
 
     this.state = {
+      apiSources: [],
       sources: [],
       articles: [],
     }
   }
 
+  resetSources = () => {
+    const sources = this.state.apiSources.slice(0)
+    this.setState({sources: sources})
+  }
+
   fetchSources = () => {
     Api.fetchSources()
       .then((res) => {
-        let fetchedSources
-
-        if(res.length > 0) {
-          fetchedSources = res
-        } else {
-          fetchedSources = []
-        }
+        const sources = res.length > 0 ? res : []
 
         this.setState({
-          sources: fetchedSources
+          apiSources: sources,
+          sources: sources
         })
       })
       .catch((error) => {
@@ -39,14 +40,8 @@ export default class App extends Component {
   fetchArticles = (source) => {
     Api.fetchArticles(source)
       .then((res) => {
-        let articles
+        const articles = res.length > 0 ? res : []
         
-        if(res.length > 0){
-          articles = res
-        } else {
-          articles = []
-        }
-
         this.setState({
           articles: articles
         })
@@ -56,11 +51,31 @@ export default class App extends Component {
       })
   }
 
-  filterSources = (source_id) => {
-    console.log('App#filterSources() => ' + source_id)
-    const sources = [...this.state.sources]
-    console.log(sources)
+  filterSources = (filter) => {
+    if(filter === '') {
+      this.resetSources()
+      return false
+    }
 
+    filter = filter.toLowerCase()
+    const filterLength = filter.length    
+    const sources = this.state.apiSources.slice(0)
+    let filteredSources = []
+
+    for(let i = 0; i < sources.length; i++) {
+      const srcID   = sources[i].id.slice(0, filterLength)
+      const srcName = sources[i].name.slice(0, filterLength)
+
+      if(srcID === filter || srcName === filter ){
+        filteredSources.push(sources[i])
+      }
+    }
+
+    if(filteredSources.length > 0) {
+      this.setState({sources: filteredSources})
+    } else {
+      this.resetSources()
+    }
   }
 
   componentDidMount(){
@@ -75,7 +90,7 @@ export default class App extends Component {
           <Search onInput={this.filterSources} />
         </div>
         <div className='row'>
-          <Sources  sources={this.state.sources} onClick={this.fetchArticles} />
+          <Sources  sources={this.state.sources} onKeyUp={this.fetchArticles} />
           <Articles articles={this.state.articles} />
         </div>
       </div>
