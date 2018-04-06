@@ -41,7 +41,7 @@ export default class App extends Component {
     Api.fetchArticles(source)
       .then((res) => {
         const articles = res.length > 0 ? res : []
-        
+
         this.setState({
           articles: articles
         })
@@ -90,7 +90,7 @@ export default class App extends Component {
           <Search onInput={this.filterSources} />
         </div>
         <div className='row'>
-          <Sources  sources={this.state.sources} onKeyUp={this.fetchArticles} />
+          <Sources  sources={this.state.sources} onClick={this.fetchArticles} />
           <Articles articles={this.state.articles} />
         </div>
       </div>
