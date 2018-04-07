@@ -10,6 +10,7 @@ export default class Api {
       })
       .catch((error) => {
       	console.log(error)
+        return []
       })
   }
 
@@ -35,6 +36,7 @@ export default class Api {
       })
       .catch((error) => {
         console.log(error)
+        return []
       })
   }
 }

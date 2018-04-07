@@ -13,6 +13,30 @@ export default class App extends Component {
     this.state = {
       sources: [],
       articles: [],
+      ascending: true
+    }
+  }
+
+  toggleAscending = () =>{
+    const articles = this.state.articles.slice(0)
+
+    articles.sort((a,b) => {
+      let first_date = new Date(a.publishedAt)
+      let next_date = new Date(b.publishedAt)
+      return first_date - next_date
+    })
+
+    if(this.state.ascending){
+      articles.reverse()
+      this.setState({
+        ascending: false,
+        articles: articles
+      })
+    } else {
+      this.setState({
+        ascending: true,
+        articles: articles
+      })
     }
   }
 
@@ -88,7 +112,7 @@ export default class App extends Component {
         </div>
         <div className='row'>
           <Sources  sources={this.state.sources} onClick={this.fetchArticles} />
-          <Articles articles={this.state.articles} />
+          <Articles articles={this.state.articles} toggleAscending={this.toggleAscending} ascending={this.state.ascending} />
         </div>
       </div>
     );

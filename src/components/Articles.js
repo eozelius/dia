@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'  
 
 export default class Articles extends Component {
-  render() {
-    const articles = this.props.articles.map((article, index) => (
+
+  toggleAscending() {
+    this.props.toggleAscending()
+  }
+  
+  renderArticle(article, index) {
+    return (
 
       <div className='article card' key={index} >
         <div className='card-header'>
@@ -19,11 +24,20 @@ export default class Articles extends Component {
           </a>
         </div>
       </div>
-    ))
+    )
+  }
 
-    return(
+  render() {
+    const articles = this.props.articles.map((article, index) => this.renderArticle(article, index))
+
+    return (
       <div className='articles col-6'>
         <h3 className='title'>Articles</h3>
+        <div onClick={() => this.toggleAscending()} className='sort-articles'>
+          <p className='active'>latest</p>
+          <p> | </p>
+          <p>oldest</p>
+        </div>
         {articles}
       </div>
     )
