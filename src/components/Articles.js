@@ -2,9 +2,37 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'  
 
 export default class Articles extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      articles: props.articles,
+      ascending: true
+    }
+  }
 
-  toggleAscending() {
-    this.props.toggleAscending()
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      articles: nextProps.articles
+    }
+  }
+
+  toggleAscending = () => {
+    const articles = this.state.articles.slice(0)
+
+    articles.sort((a,b) => {
+      let first_date = new Date(a.publishedAt)
+      let next_date = new Date(b.publishedAt)
+      return first_date - next_date
+    })
+
+    if(this.state.ascending){
+      articles.reverse()
+    }
+
+    this.setState({
+      articles: articles,
+      ascending: !this.state.ascending
+    })
   }
   
   renderArticle(article, index) {
@@ -28,12 +56,12 @@ export default class Articles extends Component {
   }
 
   render() {
-    const articles = this.props.articles.map((article, index) => this.renderArticle(article, index))
+    const articles = this.state.articles.map((article, index) => this.renderArticle(article, index))
 
     return (
       <div className='articles col-6'>
         <h3 className='title'>Articles</h3>
-        <div onClick={() => this.toggleAscending()} className='sort-articles'>
+        <div onClick={this.toggleAscending} className='sort-articles'>
           <p className='active'>latest</p>
           <p> | </p>
           <p>oldest</p>

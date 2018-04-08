@@ -13,30 +13,6 @@ export default class App extends Component {
     this.state = {
       sources: [],
       articles: [],
-      ascending: true
-    }
-  }
-
-  toggleAscending = () =>{
-    const articles = this.state.articles.slice(0)
-
-    articles.sort((a,b) => {
-      let first_date = new Date(a.publishedAt)
-      let next_date = new Date(b.publishedAt)
-      return first_date - next_date
-    })
-
-    if(this.state.ascending){
-      articles.reverse()
-      this.setState({
-        ascending: false,
-        articles: articles
-      })
-    } else {
-      this.setState({
-        ascending: true,
-        articles: articles
-      })
     }
   }
 
@@ -49,7 +25,7 @@ export default class App extends Component {
     Api.fetchSources()
       .then((res) => {
         const sources = res.length > 0 ? res : []
-        this.apiSources = sources;
+        this.apiSources = sources
         this.setState({
           sources: sources
         })
@@ -73,9 +49,10 @@ export default class App extends Component {
       })
   }
 
-  filterSources = (filter) => {
+  searchSources = (filter) => {
     if(filter === '') {
       this.resetSources()
+      this.fetchArticles()
       return false
     }
 
@@ -95,7 +72,10 @@ export default class App extends Component {
       this.setState({sources: filteredSources})
       this.fetchArticles(filteredArticles)
     } else {
-      this.resetSources()
+      this.setState({
+        sources: [],
+        articles: []
+      })
     }
   }
 
@@ -108,11 +88,11 @@ export default class App extends Component {
     return (
       <div className="App container" >
         <div className='row'>
-          <Search onInput={this.filterSources} />
+          <Search onKeyUp={this.searchSources} />
         </div>
         <div className='row'>
           <Sources  sources={this.state.sources} onClick={this.fetchArticles} />
-          <Articles articles={this.state.articles} toggleAscending={this.toggleAscending} ascending={this.state.ascending} />
+          <Articles articles={this.state.articles} />
         </div>
       </div>
     );

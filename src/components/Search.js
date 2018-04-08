@@ -4,7 +4,7 @@ export default class SourcesFilter extends Component {
   handleKeyUp = (e) => {
     e.preventDefault()
     const query = e.target.value
-    this.props.onInput(query)
+    this.props.onKeyUp(query)
   }
 
   render() {
