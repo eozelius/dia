@@ -19,7 +19,7 @@ export default class Sources extends Component {
   }
 
   renderSource(source, index) {
-    let classNames = 'source'
+    let classNames = `source ${source.id}`
 
     if(this.state.activeSource === index) {
       classNames += ' active'
@@ -34,7 +34,7 @@ export default class Sources extends Component {
 
   render() {
     const sources = this.props.sources.map((source, index) => this.renderSource(source, index))
-
+    
     return (
       <div className='sources col-6'>
         <h3 className='title'>Sources</h3>
@@ -45,11 +45,6 @@ export default class Sources extends Component {
 }
 
 Sources.propTypes = { 
-  sources: PropTypes.array.isRequired
+  sources: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired
 }
-
-Sources.defaultProps = {
-  sources: []
-}
-
-

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-export default class SourcesFilter extends Component {
+export default class Search extends Component {
   handleKeyUp = (e) => {
     e.preventDefault()
     const query = e.target.value
@@ -15,4 +16,8 @@ export default class SourcesFilter extends Component {
       </div>
     );
   }
+}
+
+Search.propTypes = { 
+  onKeyUp: PropTypes.func.isRequired
 }

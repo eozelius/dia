@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Api from '../Api.js'
+import {fetchSources, fetchArticles} from '../Api.js'
 import Search from './Search.js'
 import Sources from './Sources.js'
 import Articles from './Articles.js'
@@ -22,7 +22,7 @@ export default class App extends Component {
   }
 
   fetchSources = () => {
-    Api.fetchSources()
+    fetchSources()
       .then((res) => {
         const sources = res.length > 0 ? res : []
         this.apiSources = sources
@@ -36,7 +36,7 @@ export default class App extends Component {
   }
 
   fetchArticles = (sources) => {
-    Api.fetchArticles(sources)
+    fetchArticles(sources)
       .then((res) => {
         const articles = res.length > 0 ? res : []
 
