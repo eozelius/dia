@@ -1,8 +1,6 @@
 import axios from 'axios'
 
 export function fetchSources(){
-  alert(process.env.REACT_APP_NEWSAPI_KEY)
-
   const url = 'https://newsapi.org/v2/sources'
   return axios.get(url, { headers: { 'X-Api-Key': '29b629b0b9e94344a9e08037a0a7dc3b'}}) 
     .then((res) => {
