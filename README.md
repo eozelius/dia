@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/eozelius/dia.svg?branch=master)](https://travis-ci.org/eozelius/dia)
+
 ## Dia & Co News API Technical test
 Welcome, this is my solution to the Dia & Co technical assessment.  
 
@@ -69,3 +71,6 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.<br>
 
 - to run tests with coverage stats, run `$ yarn test --coverage`
+
+### Travis CI
+This project is continuously integrated with travis CI
